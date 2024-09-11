@@ -67,6 +67,62 @@ enum COG_GameEvent
     GAME_EVENT_CHILDREN_OF_GOLDSHIRE = 74
 };
 
+class npc_startzone_teleporter : public CreatureScript
+{
+public:
+    npc_startzone_teleporter() : CreatureScript("npc_startzone_teleporter") { }
+
+    bool OnGossipSelect(Player* player, Creature* creature, uint32 /*sender*/, uint32 action) override
+    {
+        ClearGossipMenuFor(player);
+        if (action == 1001)
+        {
+            player->TeleportTo(1, 10309.735f, 831.3456f, 1326.4413f, 2.2f);
+        }
+        if (action == 1002)
+        {
+            player->TeleportTo(0, -6231.77f, 332.993f, 383.171f, 0.48f);
+        }
+        if (action == 1003)
+        {
+            player->TeleportTo(0, -8952.698f, -108.925f, 83.47f, 5.55f);
+        }
+        if (action == 1004)
+        {
+            player->TeleportTo(1, -607.24f, -4248.208f, 38.95f, 4.12f);
+        }
+        if (action == 1005)
+        {
+            player->TeleportTo(1, -2927.30f, -256.88f, 53.66f, 0.37f);
+        }
+        if (action == 1006)
+        {
+            player->TeleportTo(0, 1670.98f, 1663.164f, 141.233f, 0.02f);
+        }
+        return true;
+    }
+
+    bool OnGossipHello(Player* player, Creature* creature) override
+    {
+        if (player->GetTeamId() == TEAM_ALLIANCE)
+        {
+            AddGossipItemFor(player, 1, "Teleport me to the Night Elf starting area.", GOSSIP_SENDER_MAIN, 1001);
+            AddGossipItemFor(player, 1, "Teleport me to the Dwarf/Gnome starting area.", GOSSIP_SENDER_MAIN, 1002);
+            AddGossipItemFor(player, 1, "Teleport me to the Human starting area.", GOSSIP_SENDER_MAIN, 1003);
+        }
+        if (player->GetTeamId() == TEAM_HORDE)
+        {
+            AddGossipItemFor(player, 1, "Teleport me to the Orc/Troll starting area.", GOSSIP_SENDER_MAIN, 1004);
+            AddGossipItemFor(player, 1, "Teleport me to the Tauren starting area.", GOSSIP_SENDER_MAIN, 1005);
+            AddGossipItemFor(player, 1, "Teleport me to the Undead starting area.", GOSSIP_SENDER_MAIN, 1006);
+        }
+
+        SendGossipMenuFor(player, player->GetGossipTextId(creature), creature->GetGUID());
+
+        return true;
+    }
+};
+
 struct npc_cameron : public ScriptedAI
 {
     npc_cameron(Creature* creature) : ScriptedAI(creature)
@@ -511,6 +567,7 @@ private:
 
 void AddSC_elwynn_forest()
 {
+    new npc_startzone_teleporter();
     RegisterCreatureAI(npc_cameron);
     RegisterCreatureAI(npc_supervisor_raelen);
     RegisterCreatureAI(npc_eastvale_peasent);
