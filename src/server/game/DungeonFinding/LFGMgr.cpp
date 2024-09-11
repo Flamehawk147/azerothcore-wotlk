@@ -2145,7 +2145,7 @@ namespace lfg
         {
             error = LFG_TELEPORTERROR_IN_VEHICLE;
         }
-        else if (player->GetCharmGUID() || player->IsInCombat())
+        else if (player->GetCharmGUID()) // REMOVED: || player->IsInCombat()
         {
             error = LFG_TELEPORTERROR_COMBAT;
         }
