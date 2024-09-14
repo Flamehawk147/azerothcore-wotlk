@@ -880,6 +880,35 @@ void Player::RewardQuest(Quest const* quest, uint32 reward, Object* questGiver, 
     UpdateZoneDependentAuras(GetZoneId());
     UpdateAreaDependentAuras(GetAreaId());
 
+    // Custom: 5% chance on quest complete to get a random world buff.
+    if (roll_chance_i(5))
+    {
+        if (this->GetLevel() <= 59) // Classic only
+        {
+            switch (urand(1, 3))
+            {
+            case 1:
+                if (this->GetTeamId() == TEAM_HORDE)
+                {
+                    this->CastSpell(this, 16609, true); // Warchief's Blessing
+                }
+                else
+                {
+                    this->CastSpell(this, 22888, true); // Rallying Cry of Dragonslayer (since no equiv. exist)
+                }
+                break;
+            case 2:
+                this->CastSpell(this, 22888, true); // Rallying Cry of Dragonslayer
+                break;
+            case 3:
+                this->CastSpell(this, 24425, true); // Spirit of Zandalar
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
     sScriptMgr->OnPlayerCompleteQuest(this, quest);
 }
 
