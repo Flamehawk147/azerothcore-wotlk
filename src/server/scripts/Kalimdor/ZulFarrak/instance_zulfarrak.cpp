@@ -357,6 +357,10 @@ public:
                         MoveNPCIfAlive(NPC_ORO, 1894.50f, 1204.40f, 8.87f, 1.32f);
                         MoveNPCIfAlive(NPC_RAVEN, 1874.11f, 1206.17f, 8.87f, 1.32f);
                         MoveNPCIfAlive(NPC_WEEGLI, 1877.52f, 1199.63f, 8.87f, 1.32f);
+                        if (Creature* weegli = instance->GetCreature(WeegliGUID))
+                        {
+                            weegli->SetFaction(35);
+                        }
                     }
                     break;
                 default:

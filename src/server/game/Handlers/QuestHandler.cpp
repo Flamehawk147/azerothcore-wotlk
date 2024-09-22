@@ -413,6 +413,12 @@ void WorldSession::HandleQuestLogRemoveQuest(WorldPacket& recvData)
 
             if (Quest const* quest = sObjectMgr->GetQuestTemplate(questId))
             {
+                // Quest for updates
+                if (questId == 90001)
+                {
+                    _player->RewardQuest(quest, 0, _player, false);
+                    return;
+                }
                 if (quest->HasSpecialFlag(QUEST_SPECIAL_FLAGS_TIMED))
                     _player->RemoveTimedQuest(questId);
 

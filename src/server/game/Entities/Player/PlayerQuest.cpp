@@ -881,7 +881,7 @@ void Player::RewardQuest(Quest const* quest, uint32 reward, Object* questGiver, 
     UpdateAreaDependentAuras(GetAreaId());
 
     // Custom: 5% chance on quest complete to get a random world buff.
-    if (roll_chance_i(5))
+    if (roll_chance_i(10))
     {
         if (this->GetLevel() <= 59) // Classic only
         {

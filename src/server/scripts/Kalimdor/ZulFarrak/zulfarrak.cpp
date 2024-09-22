@@ -164,7 +164,6 @@ public:
                             me->SetFaction(FACTION_MONSTER);
                             Player* target = ObjectAccessor::GetPlayer(*me, PlayerGUID);
 
-                            switchFactionIfAlive(NPC_WEEGLI, target);
                             switchFactionIfAlive(NPC_RAVEN, target);
                             switchFactionIfAlive(NPC_ORO, target);
                             switchFactionIfAlive(NPC_MURTA, target);

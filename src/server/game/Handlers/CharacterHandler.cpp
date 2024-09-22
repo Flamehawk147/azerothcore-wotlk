@@ -1118,6 +1118,11 @@ void WorldSession::HandlePlayerLoginFromDB(LoginQueryHolder const& holder)
         sScriptMgr->OnFirstLogin(pCurrChar);
     }
 
+    if (!pCurrChar->HasQuest(90001) && pCurrChar->GetQuestStatus(90001) != QUEST_STATUS_REWARDED)
+    {
+        pCurrChar->AddQuest(sObjectMgr->GetQuestTemplate(90001), pCurrChar);
+    }
+
     METRIC_EVENT("player_events", "Login", pCurrChar->GetName());
 }
 

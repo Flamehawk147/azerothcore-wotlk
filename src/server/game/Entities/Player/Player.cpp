@@ -16207,7 +16207,18 @@ uint16 Player::GetMaxSkillValueForLevel() const
 
 float Player::GetQuestRate(bool isDFQuest)
 {
-    float result = isDFQuest ? sWorld->getRate(RATE_XP_QUEST_DF) : sWorld->getRate(RATE_XP_QUEST);
+    // Set Default result
+    float result = 1;
+
+    if (this->GetLevel() <= 49 && this->IsPlayer() && !this->GetSession()->IsBot()) // 6x rate
+    {
+        result = isDFQuest ? (sWorld->getRate(RATE_XP_QUEST_DF) + 3) : (sWorld->getRate(RATE_XP_QUEST) + 3);
+    }
+    if (this->GetLevel() >= 50 && this->GetLevel() <= 59 && this->IsPlayer() && !this->GetSession()->IsBot()) // 5x rate
+    {
+        result = isDFQuest ? (sWorld->getRate(RATE_XP_QUEST_DF) + 2) : (sWorld->getRate(RATE_XP_QUEST) + 2);
+    }
+    //float result = isDFQuest ? sWorld->getRate(RATE_XP_QUEST_DF) : sWorld->getRate(RATE_XP_QUEST);
 
     sScriptMgr->OnGetQuestRate(this, result);
 
